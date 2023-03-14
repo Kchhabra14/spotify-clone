@@ -7,19 +7,22 @@ import { reducerCases } from '../statemanager/Constants'
 
 export default function Body() {
   const [{token , selectedPlaylistId , selectedPlaylist} , dispatch] = useStateProvider()
+  console.log("Hello world");
   useEffect(() =>{ 
     const getInitialplaylist = async() =>{
-      console.log(selectedPlaylistId)
-      const response = await axios.get(`https://api.spotify.com/v1/playlists/${selectedPlaylistId}`, {
+      console.log(selectedPlaylistId, "this id");
+      const response = await axios.get(`https://api.spotify.com/v1/playlists/0Ryai7BcyDRRJooKqqMIjz`, {
         headers :{
-          Authorization : 'Bearer' + token,
+          Authorization : 'Bearer ' + token,
           'Content-Type': "application/json",
       },
       });
+
+      console.log(response, " this response")
       const selectedPlaylist = {
         id : response.data.id,
         name : response.data.name,
-        description : response.data.description.startswith('<a') 
+        description : response.data.description.startsWith('<a') 
         ?  "" : response.data.description,
         images : response.data.images[0].url,
         tracks : response.data.tracks.items.map(({track}) => ({
@@ -33,7 +36,7 @@ export default function Body() {
           track_number : track.track_number,
         }))
       }
-      console.log(selectedPlaylist)
+      console.log(selectedPlaylist.images);
 //if description starts with anchor tag, then give "" empty string otherwise return
 // response.data.description
       console.log(response.data )
@@ -48,7 +51,7 @@ export default function Body() {
           <>
           <div className="playlist">
             <div className="image">
-              <img src={selectedPlaylist.image} alt='selectedimage' />
+              <img src={selectedPlaylist.images} alt='selectedimage' />
             </div>
             <div className="details">
               <span className='type'> PLAYLIST</span>
