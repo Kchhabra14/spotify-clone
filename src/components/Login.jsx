@@ -4,7 +4,7 @@ import styled from "styled-components";
 
     
       const clientId = "4d95ba87aa5e4d63b82f48898cefc90f";
-      const redirectUrl = "http://localhost:3000/";
+      const redirectUrl = "https://master--starlit-scone-d315f0.netlify.app/";
       const apiUrl = "https://accounts.spotify.com/authorize";
       const scope = [
         'user-read-email',
