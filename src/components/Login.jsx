@@ -1,9 +1,8 @@
 import React from 'react';
 import styled from "styled-components";
 
-export default function Login() {
 
-    const handleClick = () =>{
+    
       const clientId = "4d95ba87aa5e4d63b82f48898cefc90f";
       const redirectUrl = "http://localhost:3000/";
       const apiUrl = "https://accounts.spotify.com/authorize";
@@ -17,19 +16,31 @@ export default function Login() {
         'user-top-read',
         'user-read-recently-played'
       ];
-      window.location.href = `${apiUrl}?client_id=${clientId}&redirect_uri=${redirectUrl}&scope=${scope.join(
-        " "
+
+      export const getTokenFromResponse =() => {
+        return window.location.hash.substring(1).split("&").reduce((initial, item) => {
+          var parts =item.split("=");
+          initial[parts[0]]= decodeURIComponent(parts[1]);
+
+          return initial;
+        }, {}); 
+      }
+      const accessUrl = `${apiUrl}?client_id=${clientId}&redirect_uri=${redirectUrl}&scope=${scope.join(
+        "%20"
         )}&response_type=token&show_dialogue=true`;
 
-    };
+
+export default function Login() {
   return (
     <Container>
         <img src='https://storage.googleapis.com/pr-newsroom-wp/1/2018/11/Spotify_Logo_CMYK_Black.png' 
         alt='spotify' />
-        <button onClick={handleClick}>Connect Spotify</button>
+        <a href={accessUrl}>
+        <button >Connect Spotify</button>
+        </a>
     </Container>
   )
-}
+};
 
 const Container = styled.div`
 display : flex;

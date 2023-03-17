@@ -1,7 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
-import {IoLibrary} from 'react-icons/io5'
-import {MdHomeFilled, MdSearch} from 'react-icons/md'
+import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
+import SearchIcon from '@material-ui/icons/Search';
+import LibraryMusicIcon from '@material-ui/icons/LibraryMusic';
 import Playlists from './Playlists'
 
 export default function Sidebar() {
@@ -14,19 +15,22 @@ export default function Sidebar() {
             </div>
             <ul>
                 <li>
-                    <MdHomeFilled/>
+                    <HomeOutlinedIcon/>
                     <span>Home</span>
                 </li>
                 <li>
-                    <MdSearch/>
+                    <SearchIcon/>
                     <span>Search</span>
                 </li>
                 <li>
-                    <IoLibrary/>
+                    <LibraryMusicIcon/>
                     <span>Your Library</span>
                 </li>
             </ul>
         </div>
+        <br/>
+        <strong className="sidebar_title">PLAYLISTS</strong>
+        <hr/>
         <Playlists/>
     </Container>
   )
@@ -35,9 +39,13 @@ const Container = styled.div`
 background-color : black;
 color: #b3b3b3;
 display: flex;
+flex: 0.2;
+padding-left: 10px;
+padding-right: 10px;
 flex-direction: column;
-height: 100%;
+height: 100vh;
 width: 100%;
+/* min-width: 230px; */
 .top_links{
     display: flex;
     flex-direction: column;
@@ -46,8 +54,9 @@ width: 100%;
     text-align: center;
     margin: 1rem 0;
     img{
-        max-inline-size: 80%;
-        block-size: auto;
+        margin-right: auto;
+        height: 70px;
+        padding: 8px;
     }
 }
 ul{
@@ -60,11 +69,21 @@ ul{
         display: flex;
         gap: 1rem;
         cursor: pointer;
-        transition: 0.3s ease-in-out;
+        transition: 200ms color ease-in;
         &:hover{
             color: white;
         }
     }
 }
-
+.sidebar_title{
+    padding: 5px;
+    margin-left: 10px;
+    font-size: 12px;
+}
+hr{
+    border: 1px solid #282828;
+    width: 90%;
+    margin: 10px auto;
+}
 `;
+

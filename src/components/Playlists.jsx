@@ -22,13 +22,11 @@ export default function Playlists() {
                 return { name, id};
             })
             dispatch({type: reducerCases.SET_PLAYLISTS , playlists});
-            console.log(playlists)
-            console.log(response)
         };
         getPlaylistdata();
     }, [token,dispatch]);
-    const changeCurrentPlaylist = (selectedPlaylistID) =>{
-        dispatch({ type : reducerCases.SET_PLAYLIST_ID, selectedPlaylistID})
+    const changeCurrentPlaylist = (selectedPlaylistId) =>{
+        dispatch({ type : reducerCases.SET_PLAYLIST_ID, selectedPlaylistId})
     };
   return (
     <Container>
@@ -51,6 +49,9 @@ const Container = styled.div`
 height: 100%;
 overflow: hidden;
 ul{
+    margin-top: auto;
+    margin-left: auto;
+    font-size: 14px;
     list-style-type: none;
     display: flex;
     flex-direction: column;

@@ -1,19 +1,38 @@
 import React, {useEffect} from 'react'
 import Login from './components/Login'
 import Spotify from './components/Spotify'
-import { reducerCases } from './statemanager/Constants'
 import { useStateProvider } from './statemanager/StateProvider'
+import { getTokenFromResponse } from './components/Login'
+import SpotifyWebApi from "spotify-web-api-js"
+
+const spotify = new SpotifyWebApi()
 
 export default function App() {
   const [{token}, dispatch ] = useStateProvider()
 
   useEffect(() => {
-    const hash = window.location.hash
+    
+    const hash = getTokenFromResponse();
+    window.location.hash ="";
     console.log(hash)
-    if(hash) {
-      const token =hash.substring(1).split('&')[0].split('=')[1];
-      console.log(token)
-      dispatch({type: reducerCases.SET_TOKEN, token})
+    let _token = hash.access_token
+
+    if(_token) {
+      spotify.setAccessToken(_token);
+
+      dispatch({
+        type: "SET_TOKEN",
+        token: _token,
+      });
+
+      spotify.getMe().then((user) => {
+        dispatch({
+          type:"SET_USER",
+          user: user,
+         });
+      });
+       
+      
     }
 
   }, [token, dispatch])
